@@ -61,7 +61,7 @@ public class DraggablePlayer : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 
         for (int i = 0; i < tierParent.transform.childCount; i++)
         {
-            tiers.Add(tierParent.transform.GetChild(i).GetChild(1).GetComponent<ItemSlot>());
+            tiers.Add(tierParent.transform.GetChild(i).Find("Players").GetComponent<ItemSlot>());
         }
 
         ItemSlot slot = tiers.FirstOrDefault(i => IsBetween(i.GetComponent<RectTransform>(), mousePosition.y));
@@ -90,13 +90,13 @@ public class DraggablePlayer : MonoBehaviour, IPointerDownHandler, IBeginDragHan
                     {
                         var obj = scrollParent.transform.GetChild(i);
 
-                        if (slot == obj.GetChild(1).GetComponent<ItemSlot>())
+                        if (slot == obj.Find("Players").GetComponent<ItemSlot>())
                         {
                             break;
                         }
                         
                         obj.SetAsLastSibling();
-                        obj.GetChild(1).GetComponent<ItemSlot>().tierNumber++;
+                        obj.Find("Players").GetComponent<ItemSlot>().tierNumber++;
                     }
                     
                     newTier.GetComponent<ItemSlot>().AddPlayerToTier(this, 25, initialParent, mousePosition);
@@ -135,13 +135,13 @@ public class DraggablePlayer : MonoBehaviour, IPointerDownHandler, IBeginDragHan
         {
             for (int i = 0; i < scrollable.transform.childCount; i++)
             {
-                var child = scrollable.transform.GetChild(i).GetChild(1);
+                var child = scrollable.transform.GetChild(i).Find("Players");
                 if (child.childCount == 0)
                 {
                     Destroy(child.parent.gameObject);
                     for (int j = i; j < scrollable.transform.childCount; j++)
                     {
-                        scrollable.transform.GetChild(j).GetChild(1).GetComponent<ItemSlot>().tierNumber--;
+                        scrollable.transform.GetChild(j).Find("Players").GetComponent<ItemSlot>().tierNumber--;
                     }    
                 }
             }

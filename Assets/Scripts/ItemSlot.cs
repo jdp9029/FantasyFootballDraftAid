@@ -15,25 +15,25 @@ public class ItemSlot : MonoBehaviour
 
     public void Update()
     {
-        transform.parent.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{Pos.ToString()}s Tier {tierNumber}";
+        transform.parent.Find("Tier Label").GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{Pos.ToString()}s Tier {tierNumber}";
 
         switch (Pos)
         {
             case Position.QB:
                 GetComponent<Image>().color = new Color(1, 0, 0, .8f);
-                transform.parent.GetChild(0).GetComponent<Image>().color = Color.red;
+                transform.parent.Find("Tier Label").GetComponent<Image>().color = Color.red;
                 break;
             case Position.RB:
                 GetComponent<Image>().color = new Color(0, 1, 0, .8f);
-                transform.parent.GetChild(0).GetComponent<Image>().color = Color.green;
+                transform.parent.Find("Tier Label").GetComponent<Image>().color = Color.green;
                 break;
             case Position.WR:
                 GetComponent<Image>().color = new Color(0, 0, 1, .8f);
-                transform.parent.GetChild(0).GetComponent<Image>().color = Color.blue;
+                transform.parent.Find("Tier Label").GetComponent<Image>().color = Color.blue;
                 break;
             case Position.TE:
                 GetComponent<Image>().color = new Color(1, 0, 1, .8f);
-                transform.parent.GetChild(0).GetComponent<Image>().color = Color.magenta;
+                transform.parent.Find("Tier Label").GetComponent<Image>().color = Color.magenta;
                 break;
         }
     }
@@ -42,13 +42,13 @@ public class ItemSlot : MonoBehaviour
     {
         transform.parent.GetComponent<LayoutElement>().preferredHeight += sizeChange;
         GetComponent<RectTransform>().sizeDelta += new Vector2(0, sizeChange);
-        transform.parent.GetChild(0).GetComponent<RectTransform>().anchoredPosition = .5f * new Vector2(0, GetComponent<RectTransform>().sizeDelta.y);
+        transform.parent.Find("Tier Label").GetComponent<RectTransform>().anchoredPosition = .5f * new Vector2(0, GetComponent<RectTransform>().sizeDelta.y);
 
         if (itemsInitialParent != null)
         {
             itemsInitialParent.transform.parent.GetComponent<LayoutElement>().preferredHeight -= sizeChange;
             itemsInitialParent.sizeDelta -= new Vector2(0, sizeChange);
-            itemsInitialParent.parent.GetChild(0).GetComponent<RectTransform>().anchoredPosition = .5f * new Vector2(0, itemsInitialParent.sizeDelta.y);
+            itemsInitialParent.parent.Find("Tier Label").GetComponent<RectTransform>().anchoredPosition = .5f * new Vector2(0, itemsInitialParent.sizeDelta.y);
         }
 
         player.initialParent = GetComponent<RectTransform>();

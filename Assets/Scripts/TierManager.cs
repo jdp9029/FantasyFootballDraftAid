@@ -70,7 +70,7 @@ public class TierManager : MonoBehaviour
 
     public ItemSlot CreateTier(ref GameObject tier, GameObject scrollParent, int tierNumber, ItemSlot.Position position)
     {
-        tier = Instantiate(Tier, scrollParent.transform).transform.GetChild(1).gameObject;
+        tier = Instantiate(Tier, scrollParent.transform).transform.Find("Players").gameObject;
         tier.GetComponent<ItemSlot>().tierNumber = tierNumber;
         tier.GetComponent<ItemSlot>().Pos = position;
         return tier.GetComponent<ItemSlot>();
@@ -103,7 +103,7 @@ public class TierManager : MonoBehaviour
             final += DraftPicks.TierDelimiter;
             for (int i = 0; i < position.transform.childCount; i++)
             {
-                var playerParent = position.transform.GetChild(i).GetChild(1);
+                var playerParent = position.transform.GetChild(i).Find("Players");
                 for (int j = 0; j < playerParent.childCount; j++)
                 {
                     var player = playerParent.GetChild(j).GetComponent<DraggablePlayer>();
@@ -150,7 +150,7 @@ public class TierManager : MonoBehaviour
         }
 
         tier.GetComponent<ItemSlot>().AddPlayerToTier(obj.GetComponent<DraggablePlayer>());
-        obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text =
+        obj.transform.Find("Player Label").GetComponent<TextMeshProUGUI>().text =
             $"{pick.metadata.first_name} {pick.metadata.last_name}, {pick.metadata.team}";
     }
 }

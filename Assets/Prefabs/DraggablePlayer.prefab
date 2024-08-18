@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2875614619653838874}
   - component: {fileID: 9044181316926089321}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: Player Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45.15
+  m_fontSize: 46.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -246,7 +246,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialParent: {fileID: 0}
-  numInOrder: 0
+  PlayerData:
+    player_id: 
+    picked_by: 
+    roster_id: 
+    round: 0
+    draft_slot: 0
+    pick_no: 0
+    metadata:
+      team: 
+      status: 
+      sport: 
+      position: 
+      player_id: 
+      number: 
+      news_updated: 
+      last_name: 
+      injury_status: 
+      first_name: 
+    is_keeper: 
+    draft_id: 
+    adpRanking: 0
+    startOfTier: 0
+  Position: 0
+  TierPrefab: {fileID: 0}
 --- !u!225 &-7417982474110460538
 CanvasGroup:
   m_ObjectHideFlags: 0
