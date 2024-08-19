@@ -158,9 +158,14 @@ public class TierManager : MonoBehaviour
         obj.transform.Find("Player Label").GetComponent<TextMeshProUGUI>().text = $"{pick.metadata.first_name} {pick.metadata.last_name}";
 
         obj.transform.Find("Team Label").GetComponent<TextMeshProUGUI>().text = $"{pick.metadata.team}";
+        
+        Color color = TeamColor(pick);
 
-        Color color = Color.white;
-        #region color setup
+        obj.transform.Find("Team Background").GetComponent<Image>().color = color;
+    }
+
+    public static Color TeamColor(DraftPick pick)
+    {
         switch (pick.metadata.team)
         {
             case "ARI":
@@ -168,16 +173,14 @@ public class TierManager : MonoBehaviour
             case "SF":
             case "TB":
             case "KC":
-                color = Color.red;
-                break;
+                return Color.red;
 
             case "DAL":
             case "NYG":
             case "SEA":
             case "BUF":
             case "NE":
-                color = Color.blue;
-                break;
+                return Color.blue;
 
             //Royal Blue
             case "CAR":
@@ -187,57 +190,47 @@ public class TierManager : MonoBehaviour
             case "LAC":
             case "MIA":
             case "TEN":
-                color = new Color32(105, 176, 235, 255);
-                break;
+                return new Color32(105, 176, 235, 255);
 
             //Navy
             case "CHI":
             case "HOU":
-                color = new Color32(0, 0, 139, 255);
-                break;
+                return new Color32(0, 0, 139, 255);
 
             //Green
             case "GB":
             case "PHI":
             case "NYJ":
-                color = new Color32(1, 50, 32, 255);
-                break;
+                return new Color32(1, 50, 32, 255);
 
             //Purple
             case "MIN":
             case "BAL":
-                color = new Color32(75, 0, 130, 255);
-                break;
+                return new Color32(75, 0, 130, 255);
 
             //Tan
             case "NO":
-                color = new Color32(210, 180, 140, 255);
-                break;
+                return new Color32(210, 180, 140, 255);
 
             //Maroon
             case "WAS":
-                color = new Color32(128, 0, 0, 255);
-                break;
+                return new Color32(128, 0, 0, 255);
 
             //Orange
             case "CIN":
             case "CLE":
             case "DEN":
-                color = new Color32(255, 165, 0, 255);
-                break;
+                return new Color32(255, 165, 0, 255);
 
             //Yellow
             case "JAX":
-                color = new Color32(155, 135, 12, 255);
-                break;
+                return new Color32(155, 135, 12, 255);
 
             case "LV":
             case "PIT":
-                color = Color.black;
-                break;
+                return Color.black;
         }
-        #endregion
 
-        obj.transform.Find("Team Background").GetComponent<Image>().color = color;
+        throw new System.Exception();
     }
 }
