@@ -41,13 +41,7 @@ public class TierManager : MonoBehaviour
         GameObject rbs = null;
         GameObject wrs = null;
         GameObject tes = null;
-
-        string tiers = PlayerPrefs.GetString("tiers", string.Empty);
-        tiersExist = tiers != string.Empty;
-        if (tiersExist)
-        {
-            picks.SortPicks(tiers);
-        }
+        SortPicks(picks);
 
         foreach (var draftPick in picks.draftPicks)
         {
@@ -66,6 +60,16 @@ public class TierManager : MonoBehaviour
                     SetupDraftPick(draftPick, ref tes, TEScroll, ItemSlot.Position.TE, ref teTierNumber, ref lastTEADP);
                     break;
             }
+        }
+    }
+
+    public void SortPicks(DraftPicks picks)
+    {
+        string tiers = PlayerPrefs.GetString("tiers", string.Empty);
+        tiersExist = tiers != string.Empty;
+        if (tiersExist)
+        {
+            picks.SortPicks(tiers);
         }
     }
 
