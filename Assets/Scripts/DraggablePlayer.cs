@@ -9,6 +9,7 @@ public class DraggablePlayer : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     private Canvas canvas;
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
+    private Navbar navbar;
 
     [SerializeField] public RectTransform initialParent;
     [SerializeField] public DraftPick PlayerData;
@@ -24,10 +25,13 @@ public class DraggablePlayer : MonoBehaviour, IPointerDownHandler, IBeginDragHan
         rectTransform = GetComponent<RectTransform>();
         canvas = FindObjectOfType<Canvas>();
         canvasGroup = GetComponent<CanvasGroup>();
+        navbar = FindObjectOfType<Navbar>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (navbar.DraftStarted) { return; }
+
         canvasGroup.alpha = .6f;
         canvasGroup.blocksRaycasts = false;
 
@@ -46,11 +50,15 @@ public class DraggablePlayer : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (navbar.DraftStarted) { return; }
+
         rectTransform.anchoredPosition += new Vector2(0, eventData.delta.y) / canvas.scaleFactor;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (navbar.DraftStarted) { return; }
+
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
         var tierManager = FindObjectOfType<TierManager>();

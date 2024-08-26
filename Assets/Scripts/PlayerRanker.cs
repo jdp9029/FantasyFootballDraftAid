@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class PlayerRanker : MonoBehaviour
 {
-    [SerializeField] int StartingQBs;
-    [SerializeField] int StartingRBs;
-    [SerializeField] int StartingWRs;
-    [SerializeField] int StartingTEs;
+    [HideInInspector] public int StartingQBs;
+    [HideInInspector] public int StartingRBs;
+    [HideInInspector] public int StartingWRs;
+    [HideInInspector] public int StartingTEs;
 
 
     // Start is called before the first frame update

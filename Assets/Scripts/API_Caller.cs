@@ -11,6 +11,20 @@ public class API_Caller : MonoBehaviour
 {
     private const string URL = "https://api.sleeper.app/v1/draft/999431784959942657/picks";
 
+    private float timer = 0;
+
+    private void Update()
+    {
+        if (FindObjectOfType<Navbar>().DraftStarted)
+        {
+            timer += Time.deltaTime;
+            if (timer > 5)
+            {
+                GetDraftData();
+            }
+        }
+    }
+
     public void GetDraftData()
     {
         StartCoroutine(LoadDraftData());
