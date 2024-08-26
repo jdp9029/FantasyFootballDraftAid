@@ -21,6 +21,7 @@ public class DraftPick
     //not serialized
     public int adpRanking;
     public bool startOfTier;
+    public bool isDrafted;
 }
 
 [Serializable]
