@@ -129,7 +129,7 @@ public class DraggablePlayer : MonoBehaviour, IPointerDownHandler, IBeginDragHan
         return mousePosY < top && mousePosY > bottom;
     }
 
-    private void ClearEmptyTiers()
+    public static void ClearEmptyTiers()
     {
         var tierManager = FindObjectOfType<TierManager>();
         var qbscroll = tierManager.QBScroll;

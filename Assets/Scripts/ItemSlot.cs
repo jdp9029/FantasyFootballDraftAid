@@ -73,6 +73,16 @@ public class ItemSlot : MonoBehaviour
         player.transform.SetParent(transform, false);
     }
 
+    public List<DraftPick> ReturnPlayersInTier()
+    {
+        var returnable = new List<DraftPick>();
+        for (int i = 0; i < transform.childCount;i++)
+        {
+            returnable.Add(transform.GetChild(i).GetComponent<DraggablePlayer>().PlayerData);
+        }
+        return returnable;
+    }
+
     public enum Position
     {
         QB, RB, WR, TE, OTHER

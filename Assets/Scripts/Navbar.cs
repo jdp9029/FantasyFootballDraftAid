@@ -4,6 +4,9 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 using System.Linq;
+using static UnityEditor.Experimental.GraphView.GraphView;
+using System.Security.Cryptography;
+using Unity.VisualScripting;
 
 public class Navbar : MonoBehaviour
 {
@@ -17,14 +20,25 @@ public class Navbar : MonoBehaviour
     [SerializeField] Button startDraft;
 
     [HideInInspector] public bool DraftStarted;
+    [HideInInspector] PlayerRanker ranker;
+    [HideInInspector] Team team;
+    [HideInInspector] Navbar navbar;
 
     // Start is called before the first frame update
     void Start()
     {
+        ranker = FindObjectOfType<PlayerRanker>();
+        team = FindObjectOfType<Team>();
+        navbar = FindObjectOfType<Navbar>();
         if (PlayerPrefs.HasKey("DraftStarted"))
         {
             DraftStarted = bool.Parse(PlayerPrefs.GetString("DraftStarted"));
-        }    
+            if (DraftStarted)
+            {
+                var data = PlayerPrefs.GetString("DraftData").Split('|');
+                StartDraft(int.Parse(data[0]), int.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), int.Parse(data[6]));
+            }
+        }
         else
         {
             DraftStarted = false;
@@ -54,25 +68,31 @@ public class Navbar : MonoBehaviour
             int.TryParse(RemoveLast(playersNum.text.ToString()), out var players) &&
             int.TryParse(RemoveLast(pickinFirstNum.text.ToString()), out var firstRoundPick))
         {
-            var ranker = FindObjectOfType<PlayerRanker>();
-
-            ranker.StartingQBs = qbs;
-            ranker.StartingRBs = rbs;
-            ranker.StartingWRs = wrs;
-            ranker.StartingTEs = tes;
-
-            var team = FindObjectOfType<Team>();
-            team.GeneratePicks(firstRoundPick, rounds, players);
-
+            StartDraft(qbs, rbs, wrs, tes, rounds, players, firstRoundPick);
             DraftStarted = true;
             PlayerPrefs.SetString("DraftStarted", DraftStarted.ToString());
-
-            startDraft.GetComponent<Image>().color = Color.red;
+            PlayerPrefs.SetString("DraftData", $"{qbs.ToString()}|{rbs.ToString()}|{wrs.ToString()}" +
+            $"|{tes.ToString()}|{rounds.ToString()}|{players.ToString()}|{firstRoundPick.ToString()}");
         }
     }
 
     private string RemoveLast(string s)
     {
         return s.Remove(s.Length - 1);
+    }
+
+    private void StartDraft(int qbs, int rbs, int wrs, int tes, int rounds, int players, int firstRoundPick)
+    {
+        ranker.StartingQBs = qbs;
+        ranker.StartingRBs = rbs;
+        ranker.StartingWRs = wrs;
+        ranker.StartingTEs = tes;
+
+        team.GeneratePicks(firstRoundPick, rounds, players);
+
+        for (int i = 0; i < navbar.transform.childCount; i++)
+        {
+            navbar.transform.GetChild(i).gameObject.SetActive(i < 8);
+        }
     }
 }

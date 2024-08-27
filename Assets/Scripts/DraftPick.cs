@@ -22,6 +22,14 @@ public class DraftPick
     public int adpRanking;
     public bool startOfTier;
     public bool isDrafted;
+
+    public bool Equals(DraftPick other)
+    {
+        return other.metadata.first_name == this.metadata.first_name &&
+            other.metadata.last_name == this.metadata.last_name &&
+            other.metadata.position == this.metadata.position &&
+            other.metadata.team == this.metadata.team;
+    }
 }
 
 [Serializable]

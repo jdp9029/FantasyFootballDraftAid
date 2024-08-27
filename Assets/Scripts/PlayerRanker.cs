@@ -23,7 +23,7 @@ public class PlayerRanker : MonoBehaviour
         
     }
 
-    private List<DraftPick> RankPlayers(DraftPicks picks)
+    public List<DraftPick> RankPlayers()
     {
         var team = GameObject.FindObjectOfType<Team>();
 
@@ -32,12 +32,10 @@ public class PlayerRanker : MonoBehaviour
             return new();
         }
 
-        picks.SortPicks(PlayerPrefs.GetString("tiers", string.Empty));
-
-        var qbs = GetTopTier(picks, "QB");
-        var rbs = GetTopTier(picks, "RB");
-        var wrs = GetTopTier(picks, "WR");
-        var tes = GetTopTier(picks, "TE");
+        var qbs = FindObjectsOfType<ItemSlot>().First(i => i.tierNumber == 1 && i.ReturnPlayersInTier()[0].metadata.position == "QB").ReturnPlayersInTier();
+        var rbs = FindObjectsOfType<ItemSlot>().First(i => i.tierNumber == 1 && i.ReturnPlayersInTier()[0].metadata.position == "RB").ReturnPlayersInTier();
+        var wrs = FindObjectsOfType<ItemSlot>().First(i => i.tierNumber == 1 && i.ReturnPlayersInTier()[0].metadata.position == "WR").ReturnPlayersInTier();
+        var tes = FindObjectsOfType<ItemSlot>().First(i => i.tierNumber == 1 && i.ReturnPlayersInTier()[0].metadata.position == "TE").ReturnPlayersInTier();
 
         var qb = qbs.FirstOrDefault();
         var rb = rbs.FirstOrDefault();
@@ -75,27 +73,45 @@ public class PlayerRanker : MonoBehaviour
         values = values.OrderByDescending(x => x).ToList();
         List<DraftPick> returnable = new List<DraftPick>();
 
+        bool addedQb = false;
+        bool addedRb = false;
+        bool addedWr = false;
+        bool addedTe = false;
+
         while (values.Any())
         {
             var v = values.First();
-            if (v == qbValue && qb != null)
+            if (v == qbValue && qb != null && !addedQb)
             {
+                addedQb = true;
                 returnable.Add(qb);
             }
-            else if (v == rbValue && rb != null)
+            else if (v == rbValue && rb != null && !addedRb)
             {
+                addedRb = true;
                 returnable.Add(rb);
             }
-            else if (v == wrValue && wr != null)
+            else if (v == wrValue && wr != null && !addedWr)
             {
+                addedWr = true;
                 returnable.Add(wr);
             }
-            else if (v == teValue && te != null)
+            else if (v == teValue && te != null && !addedTe)
             {
+                addedTe = true;
                 returnable.Add(te);
+            }
+            else
+            {
+                Debug.Log("garbage");
             }
             values.RemoveAt(0);
         }
+        Debug.Log($"Top Option: {returnable[0].metadata.first_name} {returnable[0].metadata.last_name}\n" +
+            $"Second Option: {returnable[1].metadata.first_name} {returnable[1].metadata.last_name}\n" +
+            $"Third Option: {returnable[2].metadata.first_name} {returnable[2].metadata.last_name}\n" +
+            $"Fourth Option: {returnable[3].metadata.first_name} {returnable[3].metadata.last_name}\n");
+
         return returnable;
     }
 
