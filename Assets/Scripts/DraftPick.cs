@@ -25,10 +25,10 @@ public class DraftPick
 
     public bool Equals(DraftPick other)
     {
-        return other.metadata.first_name == this.metadata.first_name &&
-            other.metadata.last_name == this.metadata.last_name &&
-            other.metadata.position == this.metadata.position &&
-            other.metadata.team == this.metadata.team;
+        return other.metadata.first_name.ToUpper() == this.metadata.first_name.ToUpper() &&
+            other.metadata.last_name.ToUpper() == this.metadata.last_name.ToUpper() &&
+            other.metadata.position.ToUpper() == this.metadata.position.ToUpper() &&
+            other.metadata.team.ToUpper() == this.metadata.team.ToUpper();
     }
 }
 

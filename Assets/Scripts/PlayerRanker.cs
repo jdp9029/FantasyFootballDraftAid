@@ -107,10 +107,6 @@ public class PlayerRanker : MonoBehaviour
             }
             values.RemoveAt(0);
         }
-        Debug.Log($"Top Option: {returnable[0].metadata.first_name} {returnable[0].metadata.last_name}\n" +
-            $"Second Option: {returnable[1].metadata.first_name} {returnable[1].metadata.last_name}\n" +
-            $"Third Option: {returnable[2].metadata.first_name} {returnable[2].metadata.last_name}\n" +
-            $"Fourth Option: {returnable[3].metadata.first_name} {returnable[3].metadata.last_name}\n");
 
         return returnable;
     }

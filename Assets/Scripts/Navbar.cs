@@ -92,7 +92,7 @@ public class Navbar : MonoBehaviour
 
         for (int i = 0; i < navbar.transform.childCount; i++)
         {
-            navbar.transform.GetChild(i).gameObject.SetActive(i < 8);
+            navbar.transform.GetChild(i).gameObject.SetActive(i > 7);
         }
     }
 }

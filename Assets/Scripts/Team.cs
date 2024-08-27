@@ -38,6 +38,8 @@ public class Team : MonoBehaviour
 
     [HideInInspector] public List<DraftPick> roster;
 
+    [HideInInspector] public int FirstRoundPick;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +54,7 @@ public class Team : MonoBehaviour
 
     public void GeneratePicks(int firstRoundPick, int numRounds, int numPlayers)
     {
+        FirstRoundPick = firstRoundPick;
         for (int round = 0; round < numRounds; round++)
         {
             //odd number rounds (because of the zero index on round #)
