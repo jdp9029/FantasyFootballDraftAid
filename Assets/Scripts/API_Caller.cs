@@ -15,7 +15,7 @@ public class API_Caller : MonoBehaviour
     [SerializeField] RectTransform FourthSlot;
     [SerializeField] RectTransform TopFourPlayerPrefab;
 
-    private const string URL = "https://api.sleeper.app/v1/draft/1134548161504112640/picks";
+    private const string URL = "https://api.sleeper.app/v1/draft/1124834862704906240/picks";
 
     private float timer = 0;
     private bool clearedTiers = false;
