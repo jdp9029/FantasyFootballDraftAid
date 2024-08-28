@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
-using System.Linq;
-using static UnityEditor.Experimental.GraphView.GraphView;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
 
 public class Navbar : MonoBehaviour
 {
