@@ -137,26 +137,18 @@ public class PlayerRanker : MonoBehaviour
 
     private double EvaluateAdpToCurrentSelection(int maxADP, int pickAfterNext)
     {
-        var diff = maxADP - pickAfterNext;
-
-        if (diff > 10)
+        var diff = pickAfterNext - maxADP;
+        double returnable = (double)diff / 5;
+        if (returnable > -5)
         {
-            return -1;
+            returnable += .5;
         }
-        else if (diff > 3)
-        {
-            return -.5;
-        }
-        else if (diff > -3)
-        {
-            return .5;
-        }
-        return 1;
+        return returnable;
     }
 
     private double EvaluatePlayersTakenToCurrentSelection(int positionNecessary, int positionTaken)
     {
-        var diff = positionNecessary - positionTaken;
+        float diff = positionNecessary - positionTaken;
         return Mathf.Max(0, diff / 2);
     }
 }

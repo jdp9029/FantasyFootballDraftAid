@@ -13,7 +13,7 @@ public class Team : MonoBehaviour
     {
         get
         {
-            var nextPick = picks.Where(i => i < PicksDrafted);
+            var nextPick = picks.Where(i => i > PicksDrafted);
             if (nextPick.Any())
             {
                 return nextPick.First();
@@ -27,7 +27,7 @@ public class Team : MonoBehaviour
     {
         get
         {
-            var nextPick = picks.Where(i => i < PicksDrafted).ToArray();
+            var nextPick = picks.Where(i => i > PicksDrafted).ToArray();
             if (nextPick.Length > 1)
             {
                 return nextPick[1];

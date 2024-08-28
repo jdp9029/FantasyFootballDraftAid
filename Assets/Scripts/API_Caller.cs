@@ -15,7 +15,7 @@ public class API_Caller : MonoBehaviour
     [SerializeField] RectTransform FourthSlot;
     [SerializeField] RectTransform TopFourPlayerPrefab;
 
-    private const string URL = "https://api.sleeper.app/v1/draft/1130987556792897536/picks";
+    private const string URL = "https://api.sleeper.app/v1/draft/1134548161504112640/picks";
 
     private float timer = 0;
     private bool clearedTiers = false;
@@ -124,7 +124,7 @@ public class API_Caller : MonoBehaviour
 
                 ErasePlayers(newPicks);
                 recordedPicks = picks.draftPicks;
-                team.picks = team.picks.Where(i => i > recordedPicks.Length).ToList();
+                team.PicksDrafted = recordedPicks.Length;
             }
         }
     }
@@ -133,7 +133,6 @@ public class API_Caller : MonoBehaviour
     {
         foreach (DraftPick pick in picks)
         {
-            Debug.Log(pick.metadata.first_name);
             var player = FindObjectsOfType<DraggablePlayer>().FirstOrDefault(i => i.PlayerData.Equals(pick));
 
             if (player != null)

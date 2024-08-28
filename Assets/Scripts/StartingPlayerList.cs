@@ -14,7 +14,7 @@ public class StartingPlayerList : MonoBehaviour
         CreatePlayer("Justin Jefferson", ItemSlot.Position.WR, "MIN");
         CreatePlayer("Ja'marr Chase", ItemSlot.Position.WR, "CIN");
         CreatePlayer("Bijan Robinson", ItemSlot.Position.RB, "ATL");
-        CreatePlayer("Amon-Ra St.Brown", ItemSlot.Position.WR, "DET");
+        CreatePlayer("Amon-Ra St. Brown", ItemSlot.Position.WR, "DET");
         CreatePlayer("Breece Hall", ItemSlot.Position.RB, "NYJ");
         CreatePlayer("A.J. Brown", ItemSlot.Position.WR, "PHI");
         CreatePlayer("Garrett Wilson", ItemSlot.Position.WR, "NYJ");
@@ -104,7 +104,7 @@ public class StartingPlayerList : MonoBehaviour
         CreatePlayer("Keon Coleman", ItemSlot.Position.WR, "BUF");
         CreatePlayer("Diontae Johnson", ItemSlot.Position.WR, "CAR");
         CreatePlayer("DeAndre Hopkins", ItemSlot.Position.WR, "TEN");
-        CreatePlayer("Jonathan Brooks", ItemSlot.Position.RB, "CAR");
+        CreatePlayer("Jonathon Brooks", ItemSlot.Position.RB, "CAR");
         CreatePlayer("Jaylen Warren", ItemSlot.Position.RB, "PIT");
         CreatePlayer("Devin Singletary", ItemSlot.Position.RB, "NYG");
         CreatePlayer("Jaxon Smith-Njigba", ItemSlot.Position.WR, "SEA");
@@ -123,7 +123,7 @@ public class StartingPlayerList : MonoBehaviour
         CreatePlayer("Gus Edwards", ItemSlot.Position.RB, "LAC");
         CreatePlayer("Ezekiel Elliot", ItemSlot.Position.RB, "DAL");
         CreatePlayer("Jayden Daniels", ItemSlot.Position.QB, "WAS");
-        CreatePlayer("Cortland Sutton", ItemSlot.Position.WR, "DEN");
+        CreatePlayer("Courtland Sutton", ItemSlot.Position.WR, "DEN");
         CreatePlayer("Curtis Samuel", ItemSlot.Position.WR, "BUF");
         CreatePlayer("Chase Brown", ItemSlot.Position.RB, "CIN");
         CreatePlayer("Romeo Doubs", ItemSlot.Position.WR, "GB");
@@ -209,6 +209,12 @@ public class StartingPlayerList : MonoBehaviour
     void CreatePlayer(string name, ItemSlot.Position position, string teamAbrev)
     {
         string[] split = name.Split(' ');
+        if (name == "Amon-Ra St. Brown")
+        {
+            split[0] = "Amon-Ra";
+            split[1] = "St. Brown";
+        }
+
         MetaData metaData = new MetaData() { first_name = split[0], last_name = split[1], team = teamAbrev, position = position.ToString() };
         DraftPick pc = new() { metadata = metaData, adpRanking = InitialPlayers.Count + 1 };
         InitialPlayers.Add(pc);
