@@ -81,29 +81,25 @@ public class PlayerRanker : MonoBehaviour
         while (values.Any())
         {
             var v = values.First();
-            if (v == qbValue && qb != null && !addedQb)
+            if (v == wrValue && wr != null && !addedWr)
             {
-                addedQb = true;
-                returnable.Add(qb);
+                addedWr = true;
+                returnable.Add(wr);
             }
             else if (v == rbValue && rb != null && !addedRb)
             {
                 addedRb = true;
                 returnable.Add(rb);
             }
-            else if (v == wrValue && wr != null && !addedWr)
+            else if (v == qbValue && qb != null && !addedQb)
             {
-                addedWr = true;
-                returnable.Add(wr);
+                addedQb = true;
+                returnable.Add(qb);
             }
             else if (v == teValue && te != null && !addedTe)
             {
                 addedTe = true;
                 returnable.Add(te);
-            }
-            else
-            {
-                Debug.Log("garbage");
             }
             values.RemoveAt(0);
         }

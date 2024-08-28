@@ -124,6 +124,7 @@ public class API_Caller : MonoBehaviour
 
                 ErasePlayers(newPicks);
                 recordedPicks = picks.draftPicks;
+                team.picks = team.picks.Where(i => i > recordedPicks.Length).ToList();
             }
         }
     }
