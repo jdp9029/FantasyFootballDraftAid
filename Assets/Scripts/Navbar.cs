@@ -26,27 +26,8 @@ public class Navbar : MonoBehaviour
         ranker = FindObjectOfType<PlayerRanker>();
         team = FindObjectOfType<Team>();
         navbar = FindObjectOfType<Navbar>();
-        if (PlayerPrefs.HasKey("DraftStarted"))
-        {
-            DraftStarted = bool.Parse(PlayerPrefs.GetString("DraftStarted"));
-            if (DraftStarted)
-            {
-                var data = PlayerPrefs.GetString("DraftData").Split('|');
-                StartDraft(int.Parse(data[0]), int.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), int.Parse(data[6]));
-            }
-        }
-        else
-        {
-            DraftStarted = false;
-            PlayerPrefs.SetString("DraftStarted", DraftStarted.ToString());
-        }
+        DraftStarted = false;
         startDraft.onClick.AddListener(StartButtonClicked);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void StartButtonClicked()
@@ -66,9 +47,6 @@ public class Navbar : MonoBehaviour
         {
             StartDraft(qbs, rbs, wrs, tes, rounds, players, firstRoundPick);
             DraftStarted = true;
-            PlayerPrefs.SetString("DraftStarted", DraftStarted.ToString());
-            PlayerPrefs.SetString("DraftData", $"{qbs.ToString()}|{rbs.ToString()}|{wrs.ToString()}" +
-            $"|{tes.ToString()}|{rounds.ToString()}|{players.ToString()}|{firstRoundPick.ToString()}");
         }
     }
 
