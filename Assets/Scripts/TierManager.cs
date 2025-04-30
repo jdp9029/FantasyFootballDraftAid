@@ -231,6 +231,7 @@ public class TierManager : MonoBehaviour
                 return Color.black;
         }
 
-        throw new System.Exception();
+        Debug.Log($"Color doesnt exist {pick.metadata.first_name} {pick.metadata.last_name} {pick.metadata.position}");
+        return Color.grey;
     }
 }
