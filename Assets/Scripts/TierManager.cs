@@ -119,6 +119,7 @@ public class TierManager : MonoBehaviour
             }
         }
         PlayerPrefs.SetString("tiers", final);
+        PlayerPrefs.Save();
     }
 
     private void SetupDraftPick(DraftPick pick, ref GameObject tier, GameObject scrollParent, ItemSlot.Position position, ref int tierNumber, ref int lastPosADP)
