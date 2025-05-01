@@ -7,7 +7,7 @@ public class StartingPlayerList : MonoBehaviour
     [HideInInspector] public List<DraftPick> InitialPlayers = new();
 
     private const int YEAR = 2025;
-    private const float VERSION = 2.0f;
+    private const float VERSION = 3.0f;
 
     public void LoadInitialPlayers()
     {
