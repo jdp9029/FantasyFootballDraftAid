@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,13 @@ public class StartingPlayerList : MonoBehaviour
     [HideInInspector] public List<DraftPick> InitialPlayers = new();
 
     private const int YEAR = 2025;
-    private const float VERSION = 5.0f;
+    private const float VERSION = 6.0f;
 
     public void LoadInitialPlayers()
     {
+        Debug.Log("PROOF THIS WORKS DEBUGLOG");
+        Debug.LogError("PROOF THIS WORKS DEBUGLOGERROR");
+        Console.WriteLine("PROOF THIS WORKS CONSOLEWRITELINE"); 
         if (!PlayerPrefs.HasKey(nameof(YEAR)) || PlayerPrefs.GetInt(nameof(YEAR)) != YEAR || !PlayerPrefs.HasKey(nameof(VERSION)) || PlayerPrefs.GetFloat(nameof(VERSION)) != VERSION)
         {
             PlayerPrefs.DeleteAll();
