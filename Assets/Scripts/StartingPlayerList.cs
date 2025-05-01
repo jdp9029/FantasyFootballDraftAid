@@ -16,6 +16,7 @@ public class StartingPlayerList : MonoBehaviour
             PlayerPrefs.DeleteAll();
             PlayerPrefs.SetInt(nameof(YEAR), YEAR);
             PlayerPrefs.SetFloat(nameof(VERSION), VERSION);
+            Debug.Log($"has tiers: {PlayerPrefs.HasKey("tiers")}");
             PlayerPrefs.Save();
         }
 
