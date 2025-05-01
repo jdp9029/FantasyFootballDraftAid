@@ -8,19 +8,15 @@ public class StartingPlayerList : MonoBehaviour
     [HideInInspector] public List<DraftPick> InitialPlayers = new();
 
     private const int YEAR = 2025;
-    private const float VERSION = 6.0f;
+    private const float VERSION = 7.0f;
 
     public void LoadInitialPlayers()
     {
-        Debug.Log("PROOF THIS WORKS DEBUGLOG");
-        Debug.LogError("PROOF THIS WORKS DEBUGLOGERROR");
-        Console.WriteLine("PROOF THIS WORKS CONSOLEWRITELINE"); 
         if (!PlayerPrefs.HasKey(nameof(YEAR)) || PlayerPrefs.GetInt(nameof(YEAR)) != YEAR || !PlayerPrefs.HasKey(nameof(VERSION)) || PlayerPrefs.GetFloat(nameof(VERSION)) != VERSION)
         {
             PlayerPrefs.DeleteAll();
             PlayerPrefs.SetInt(nameof(YEAR), YEAR);
             PlayerPrefs.SetFloat(nameof(VERSION), VERSION);
-            Debug.Log($"has tiers: {PlayerPrefs.HasKey("tiers")}");
             PlayerPrefs.Save();
         }
 
