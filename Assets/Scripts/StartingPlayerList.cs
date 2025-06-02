@@ -230,7 +230,7 @@ public class StartingPlayerList : MonoBehaviour
         }
 
         MetaData metaData = new MetaData() { first_name = split[0], last_name = split[1], team = teamAbrev, position = position.ToString() };
-        DraftPick pc = new() { metadata = metaData, adpRanking = InitialPlayers.Count + 1 };
+        DraftPick pc = new() { metadata = metaData, adpRanking = InitialPlayers.Count + 1, idNumber = InitialPlayers.Count + 1 };
         InitialPlayers.Add(pc);
     }
 }
