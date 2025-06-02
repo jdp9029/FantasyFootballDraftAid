@@ -20,6 +20,7 @@ public class DraftPick
 
     //not serialized
     public int adpRanking;
+    public int idNumber;
     public bool startOfTier;
     public bool isDrafted;
 
@@ -53,7 +54,7 @@ public class DraftPicks
 
             if (!string.IsNullOrWhiteSpace(newplayer))
             {
-                var playerlookup = draftPicks.First(i => i.adpRanking == int.Parse(newplayer));
+                var playerlookup = draftPicks.First(i => i.idNumber == int.Parse(newplayer));
                 list.Add(playerlookup);
                 playerlookup.startOfTier = newTier;
             }
