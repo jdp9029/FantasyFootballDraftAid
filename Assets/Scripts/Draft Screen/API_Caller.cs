@@ -15,7 +15,7 @@ public class API_Caller : MonoBehaviour
     [SerializeField] RectTransform FourthSlot;
     [SerializeField] RectTransform TopFourPlayerPrefab;
 
-    private const string URL = "https://api.sleeper.app/v1/draft/1124834862704906240/picks";
+    [HideInInspector] public string URL;
 
     private float timer = 0;
     private bool clearedTiers = false;
@@ -37,7 +37,7 @@ public class API_Caller : MonoBehaviour
         if (FindObjectOfType<Navbar>().DraftStarted)
         {
             timer += Time.deltaTime;
-            if (timer > 5)
+            if (timer > 20)
             {
                 GetDraftData();
                 timer = 0;
@@ -102,6 +102,8 @@ public class API_Caller : MonoBehaviour
     {
         using (UnityWebRequest request = UnityWebRequest.Get(URL))
         {
+            request.SetRequestHeader("Cache-Control", "no-cache");
+
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.ConnectionError)
@@ -111,6 +113,7 @@ public class API_Caller : MonoBehaviour
             else
             {
                 string json = "{\"draftPicks\":[" + request.downloadHandler.text[1..] + '}';
+                Debug.Log(json);
 
                 DraftPicks picks = JsonUtility.FromJson<DraftPicks>(json);
                 team.PicksDrafted = picks.draftPicks.Length;

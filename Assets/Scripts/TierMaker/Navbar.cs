@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Navbar : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI qbNum;
-    [SerializeField] TextMeshProUGUI rbNum;
-    [SerializeField] TextMeshProUGUI wrNum;
-    [SerializeField] TextMeshProUGUI teNum;
-    [SerializeField] TextMeshProUGUI roundNum;
-    [SerializeField] TextMeshProUGUI playersNum;
-    [SerializeField] TextMeshProUGUI pickinFirstNum;
+    [SerializeField] RectTransform[] Togglables;
     [SerializeField] Button startDraft;
+    [SerializeField] GameObject launchPrefab;
 
     [HideInInspector] public bool DraftStarted;
     [HideInInspector] PlayerRanker ranker;
@@ -28,6 +24,32 @@ public class Navbar : MonoBehaviour
         navbar = FindObjectOfType<Navbar>();
         DraftStarted = false;
         startDraft.onClick.AddListener(StartButtonClicked);
+
+        foreach (var obj in Togglables)
+        {
+            var up = obj.Find("Up").GetComponent<Button>();
+            var down = obj.Find("Down").GetComponent<Button>();
+
+            up.onClick.AddListener(delegate
+            {
+                if (DraftStarted)
+                {
+                    return;
+                }
+                var val = int.Parse(obj.Find("Value").GetComponent<TextMeshProUGUI>().text);
+                obj.Find("Value").GetComponent<TextMeshProUGUI>().text = (val + 1).ToString();
+            });
+
+            down.onClick.AddListener(delegate
+            {
+                if (DraftStarted)
+                {
+                    return;
+                }
+                var val = int.Parse(obj.Find("Value").GetComponent<TextMeshProUGUI>().text);
+                obj.Find("Value").GetComponent<TextMeshProUGUI>().text = (val - 1).ToString();
+            });
+        }
     }
 
     private void StartButtonClicked()
@@ -37,22 +59,35 @@ public class Navbar : MonoBehaviour
             return;
         }
 
-        if (int.TryParse(RemoveLast(qbNum.text.ToString()), out var qbs) &&
-            int.TryParse(RemoveLast(rbNum.text.ToString()), out var rbs) &&
-            int.TryParse(RemoveLast(wrNum.text.ToString()), out var wrs) &&
-            int.TryParse(RemoveLast(teNum.text.ToString()), out var tes) &&
-            int.TryParse(RemoveLast(roundNum.text.ToString()), out var rounds) &&
-            int.TryParse(RemoveLast(playersNum.text.ToString()), out var players) &&
-            int.TryParse(RemoveLast(pickinFirstNum.text.ToString()), out var firstRoundPick))
-        {
-            StartDraft(qbs, rbs, wrs, tes, rounds, players, firstRoundPick);
-            DraftStarted = true;
-        }
+        var qbs = int.Parse(Togglables[0].Find("Value").GetComponent<TextMeshProUGUI>().text);
+        var rbs = int.Parse(Togglables[1].Find("Value").GetComponent<TextMeshProUGUI>().text);
+        var wrs = int.Parse(Togglables[2].Find("Value").GetComponent<TextMeshProUGUI>().text);
+        var tes = int.Parse(Togglables[3].Find("Value").GetComponent<TextMeshProUGUI>().text);
+        var rounds = int.Parse(Togglables[4].Find("Value").GetComponent<TextMeshProUGUI>().text);
+        var members = int.Parse(Togglables[5].Find("Value").GetComponent<TextMeshProUGUI>().text);
+        var firstRoundPick = int.Parse(Togglables[6].Find("Value").GetComponent<TextMeshProUGUI>().text);
+        LaunchApiCaller(qbs, rbs, wrs, tes, rounds, members, firstRoundPick);
     }
 
-    private string RemoveLast(string s)
+    private void LaunchApiCaller(int qbs, int rbs, int wrs, int tes, int rounds, int players, int firstRoundPick)
     {
-        return s.Remove(s.Length - 1);
+        var launchObject = GameObject.Instantiate(launchPrefab, FindObjectOfType<Canvas>().GetComponent<RectTransform>());
+        launchObject.GetComponent<RectTransform>().Find("Button").GetComponent<Button>().onClick.AddListener(delegate
+        {
+            var code = GUIUtility.systemCopyBuffer.Replace("https://sleeper.app/draft/nfl/", "").Replace("https://sleeper.com/draft/nfl/", "");
+
+            if (ulong.TryParse(code, out _))
+            {
+                StartDraft(qbs, rbs, wrs, tes, rounds, players, firstRoundPick);
+                FindObjectOfType<API_Caller>().URL = $"https://api.sleeper.app/v1/draft/{code}/picks";
+                DraftStarted = true;
+                launchObject.SetActive(false);
+            }
+            else
+            {
+                Debug.Log(code);
+            }
+        });
     }
 
     private void StartDraft(int qbs, int rbs, int wrs, int tes, int rounds, int players, int firstRoundPick)
