@@ -65,7 +65,9 @@ public class TierManager : MonoBehaviour
 
     public void SortPicks(DraftPicks picks)
     {
-        string tiers = PlayerPrefs.GetString("tiers", string.Empty);
+        var str = StartingPlayerList.IsDynasty ? "dtiers" : "tiers";
+
+        string tiers = PlayerPrefs.GetString(str, string.Empty);
         tiersExist = tiers != string.Empty;
         if (tiersExist)
         {
@@ -112,13 +114,13 @@ public class TierManager : MonoBehaviour
                 for (int j = 0; j < playerParent.childCount; j++)
                 {
                     var player = playerParent.GetChild(j).GetComponent<DraggablePlayer>();
-                    final += player.PlayerData.adpRanking.ToString();
+                    final += player.PlayerData.idNumber.ToString();
                     final += DraftPicks.PlayerDelimiter;
                 }
                 final += DraftPicks.TierDelimiter;
             }
         }
-        PlayerPrefs.SetString("tiers", final);
+        PlayerPrefs.SetString(StartingPlayerList.IsDynasty ? "dtiers" : "tiers", final);
         PlayerPrefs.Save();
     }
 
@@ -155,14 +157,21 @@ public class TierManager : MonoBehaviour
             }
         }
 
-        tier.GetComponent<ItemSlot>().AddPlayerToTier(obj.GetComponent<DraggablePlayer>());
-        obj.transform.Find("Player Label").GetComponent<TextMeshProUGUI>().text = $"{pick.metadata.first_name} {pick.metadata.last_name}";
+        try
+        {
+            tier.GetComponent<ItemSlot>().AddPlayerToTier(obj.GetComponent<DraggablePlayer>());
+            obj.transform.Find("Player Label").GetComponent<TextMeshProUGUI>().text = $"{pick.metadata.first_name} {pick.metadata.last_name}";
 
-        obj.transform.Find("Team Label").GetComponent<TextMeshProUGUI>().text = $"{pick.metadata.team}";
-        
-        Color color = TeamColor(pick);
+            obj.transform.Find("Team Label").GetComponent<TextMeshProUGUI>().text = $"{pick.metadata.team}";
 
-        obj.transform.Find("Team Background").GetComponent<Image>().color = color;
+            Color color = TeamColor(pick);
+
+            obj.transform.Find("Team Background").GetComponent<Image>().color = color;
+        }
+        catch
+        {
+            Debug.Log(tier);
+        }
     }
 
     public static Color TeamColor(DraftPick pick)

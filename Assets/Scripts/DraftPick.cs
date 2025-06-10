@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -54,12 +55,17 @@ public class DraftPicks
 
             if (!string.IsNullOrWhiteSpace(newplayer))
             {
-                var playerlookup = draftPicks.First(i => i.idNumber == int.Parse(newplayer));
-                list.Add(playerlookup);
-                playerlookup.startOfTier = newTier;
+                var playerlookup = draftPicks.FirstOrDefault(i => i.idNumber == int.Parse(newplayer));
+                if (playerlookup != null)
+                {
+                    list.Add(playerlookup);
+                    playerlookup.startOfTier = newTier;
+                }
             }
         }
-
+        
+        var leftOvers = draftPicks.Where(i => !list.Any(j => j.idNumber == i.idNumber));
+        list.AddRange(leftOvers);
         draftPicks = list.ToArray();
     }
 }
