@@ -267,6 +267,8 @@ public class StartingPlayerList : MonoBehaviour
         CreatePlayer("Harold Fannin", ItemSlot.Position.TE, "CLE", 236, 176);
         CreatePlayer("Theo Johnson", ItemSlot.Position.TE, "NYG", 221, 212);
         CreatePlayer("Ben Sinnott", ItemSlot.Position.TE, "WAS", 266, 190);
+
+        InitialPlayers = InitialPlayers.OrderBy(i => i.adpRanking).ToList();
     }
 
     void NullPlayer(string name)
