@@ -45,7 +45,7 @@ public class StartingPlayerList : MonoBehaviour
         CreatePlayer("Jaxon Smith-Njigba", ItemSlot.Position.WR, "SEA", 24, 26);
         CreatePlayer("Trey McBride", ItemSlot.Position.TE, "ARI", 22, 21);
         CreatePlayer("Ladd McConkey", ItemSlot.Position.WR, "LAC", 21, 19);
-        CreatePlayer("Tee Higgins", ItemSlot.Position.WR, "CIN", 27, 39);
+        CreatePlayer("Tee Higgins", ItemSlot.Position.WR, "CIN", 28, 39);
         CreatePlayer("Josh Allen", ItemSlot.Position.QB, "BUF", 20, 11);
         CreatePlayer("Bucky Irving", ItemSlot.Position.RB, "TB", 19, 23);
         CreatePlayer("Lamar Jackson", ItemSlot.Position.QB, "BAL", 25, 15);

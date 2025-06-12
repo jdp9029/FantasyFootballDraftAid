@@ -38,8 +38,9 @@ public class ItemSlot : MonoBehaviour
         }
     }
 
-    public void AddPlayerToTier(DraggablePlayer player, float sizeChange = 25, RectTransform itemsInitialParent = null, object mousePosition = null)
+    public void AddPlayerToTier(DraggablePlayer player, RectTransform itemsInitialParent = null, object mousePosition = null)
     {
+        var sizeChange = 40;
         transform.parent.GetComponent<LayoutElement>().preferredHeight += sizeChange;
         GetComponent<RectTransform>().sizeDelta += new Vector2(0, sizeChange);
         transform.parent.Find("Tier Label").GetComponent<RectTransform>().anchoredPosition = .5f * new Vector2(0, GetComponent<RectTransform>().sizeDelta.y);

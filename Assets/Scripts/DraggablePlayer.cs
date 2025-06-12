@@ -81,7 +81,7 @@ public class DraggablePlayer : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 
         if (slot != default)
         {
-            slot.AddPlayerToTier(this, 25, initialParent, mousePosition);
+            slot.AddPlayerToTier(this, initialParent, mousePosition);
         }
         else
         {
@@ -112,7 +112,7 @@ public class DraggablePlayer : MonoBehaviour, IPointerDownHandler, IBeginDragHan
                         obj.Find("Players").GetComponent<ItemSlot>().tierNumber++;
                     }
                     
-                    newTier.GetComponent<ItemSlot>().AddPlayerToTier(this, 25, initialParent, mousePosition);
+                    newTier.GetComponent<ItemSlot>().AddPlayerToTier(this, initialParent, mousePosition);
                     break;
                 }
             }
