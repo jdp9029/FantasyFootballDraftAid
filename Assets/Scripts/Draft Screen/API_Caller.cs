@@ -37,7 +37,7 @@ public class API_Caller : MonoBehaviour
         if (FindObjectOfType<Navbar>().DraftStarted)
         {
             timer += Time.deltaTime;
-            if (timer > 20)
+            if (timer > 5)
             {
                 GetDraftData();
                 timer = 0;
@@ -102,7 +102,9 @@ public class API_Caller : MonoBehaviour
     {
         using (UnityWebRequest request = UnityWebRequest.Get(URL))
         {
-            request.SetRequestHeader("Cache-Control", "no-cache");
+            request.SetRequestHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            request.SetRequestHeader("Pragma", "no-cache");
+            request.SetRequestHeader("Expires", "0");
 
             yield return request.SendWebRequest();
 
@@ -113,7 +115,6 @@ public class API_Caller : MonoBehaviour
             else
             {
                 string json = "{\"draftPicks\":[" + request.downloadHandler.text[1..] + '}';
-                Debug.Log(json);
 
                 DraftPicks picks = JsonUtility.FromJson<DraftPicks>(json);
                 team.PicksDrafted = picks.draftPicks.Length;

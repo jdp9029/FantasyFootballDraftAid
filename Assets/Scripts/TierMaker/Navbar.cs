@@ -1,15 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEngine.UI;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
+using UnityEngine.UI;
 
 public class Navbar : MonoBehaviour
 {
     [SerializeField] RectTransform[] Togglables;
     [SerializeField] Button startDraft;
     [SerializeField] GameObject launchPrefab;
+    //[SerializeField] GameObject DraftStatsPrefab;
 
     [HideInInspector] public bool DraftStarted;
     [HideInInspector] PlayerRanker ranker;
@@ -66,9 +64,25 @@ public class Navbar : MonoBehaviour
         var rounds = int.Parse(Togglables[4].Find("Value").GetComponent<TextMeshProUGUI>().text);
         var members = int.Parse(Togglables[5].Find("Value").GetComponent<TextMeshProUGUI>().text);
         var firstRoundPick = int.Parse(Togglables[6].Find("Value").GetComponent<TextMeshProUGUI>().text);
-        LaunchApiCaller(qbs, rbs, wrs, tes, rounds, members, firstRoundPick);
+        //LaunchApiCaller(qbs, rbs, wrs, tes, rounds, members, firstRoundPick);
+        //LoadDraftScreen(qbs, rbs, wrs, tes, rounds, members, firstRoundPick);
     }
 
+    private void LoadDraftScreen(int qbs, int rbs, int wrs, int tes, int rounds, int players, int firstRoundPick)
+    {
+        /*var obj = Instantiate(DraftStatsPrefab);
+        var draftStats = obj.GetComponent<ActiveDraftStats>();
+        draftStats.NumQbs = qbs;
+        draftStats.NumRbs = rbs;
+        draftStats.NumWrs = wrs;
+        draftStats.NumTes = tes;
+        draftStats.NumRounds = rounds;
+        draftStats.NumLeagueMembers = players;
+        draftStats.FirstRoundPick = firstRoundPick;
+        DontDestroyOnLoad(obj);*/
+    }
+
+    #region legacy
     private void LaunchApiCaller(int qbs, int rbs, int wrs, int tes, int rounds, int players, int firstRoundPick)
     {
         var launchObject = GameObject.Instantiate(launchPrefab, FindObjectOfType<Canvas>().GetComponent<RectTransform>());
@@ -104,4 +118,5 @@ public class Navbar : MonoBehaviour
             navbar.transform.GetChild(i).gameObject.SetActive(i > 7);
         }
     }
+    #endregion
 }

@@ -133,7 +133,7 @@ public class StartingPlayerList : MonoBehaviour
         CreatePlayer("Rachaad White", ItemSlot.Position.RB, "TB", 122, 139);
         CreatePlayer("Tucker Kraft", ItemSlot.Position.TE, "GB", 116, 102);
         CreatePlayer("C.J. Stroud", ItemSlot.Position.QB, "HOU", 118, 77);
-        CreatePlayer("JK Dobbins", ItemSlot.Position.RB, "FA", 151, 149);
+        CreatePlayer("JK Dobbins", ItemSlot.Position.RB, "DEN", 151, 149);
         CreatePlayer("Darnell Mooney", ItemSlot.Position.WR, "ATL", 113, 142);
         CreatePlayer("Keenan Allen", ItemSlot.Position.WR, "FA", 154, 220);
         CreatePlayer("Ricky Pearsall", ItemSlot.Position.WR, "SF", 99, 91);
