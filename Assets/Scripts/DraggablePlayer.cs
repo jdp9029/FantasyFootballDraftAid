@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -18,6 +19,10 @@ public class DraggablePlayer : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     [SerializeField] GameObject TierPrefab;
 
     private int initialPosition;
+
+    [SerializeField] public TextMeshProUGUI ReachRange;
+    [SerializeField] public TextMeshProUGUI TargetRange;
+    [SerializeField] public TextMeshProUGUI StealRange;
 
     // Start is called before the first frame update
     void Awake()

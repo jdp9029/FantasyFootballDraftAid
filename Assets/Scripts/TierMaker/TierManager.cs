@@ -157,21 +157,29 @@ public class TierManager : MonoBehaviour
             }
         }
 
-        try
+        tier.GetComponent<ItemSlot>().AddPlayerToTier(obj.GetComponent<DraggablePlayer>());
+        obj.transform.Find("Player Label").GetComponent<TextMeshProUGUI>().text = $"{pick.metadata.first_name} {pick.metadata.last_name}";
+
+        obj.transform.Find("Team Label").GetComponent<TextMeshProUGUI>().text = $"{pick.metadata.team}";
+
+        Color color = TeamColor(pick);
+
+        obj.transform.Find("Team Background").GetComponent<Image>().color = color;
+
+        var player = obj.GetComponent<DraggablePlayer>();
+
+        if (player.PlayerData.adpRanking <= 8)
         {
-            tier.GetComponent<ItemSlot>().AddPlayerToTier(obj.GetComponent<DraggablePlayer>());
-            obj.transform.Find("Player Label").GetComponent<TextMeshProUGUI>().text = $"{pick.metadata.first_name} {pick.metadata.last_name}";
-
-            obj.transform.Find("Team Label").GetComponent<TextMeshProUGUI>().text = $"{pick.metadata.team}";
-
-            Color color = TeamColor(pick);
-
-            obj.transform.Find("Team Background").GetComponent<Image>().color = color;
+            player.ReachRange.text = "N/A";
+            player.TargetRange.text = $"1-{2 + player.PlayerData.adpRanking}";
         }
-        catch
+        else
         {
-            Debug.Log(tier);
+            player.ReachRange.text = $"<{player.PlayerData.adpRanking - 7}";
+            player.TargetRange.text = $"{player.PlayerData.adpRanking - 7}-{2 + player.PlayerData.adpRanking}";
         }
+
+        player.StealRange.text = $">{player.PlayerData.adpRanking + 2}";
     }
 
     public static Color TeamColor(DraftPick pick)
