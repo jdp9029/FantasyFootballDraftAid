@@ -16,7 +16,7 @@ public class ActiveDraftStats : MonoBehaviour
     // Start is called before the first frame update
     void Start() 
     {
-        SceneManager.LoadScene("Draft Screen");
+        //SceneManager.LoadScene("Draft Screen");
     }
 
     // Update is called once per frame
